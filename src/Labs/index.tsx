@@ -7,7 +7,14 @@ export default function Labs() {
   return (
     <div>
       <h1>Labs</h1>
+      <h3>Yichi Zhang Section 01</h3>
       <TOC />
+      <a
+        id="wd-github"
+        href="https://github.com/AliciaZYC/kanbas-react-web-app.git"
+      >
+        Github Repository
+      </a>
       <Routes>
         <Route path="/" element={<Navigate to="Lab1" />} />
         <Route path="Lab1" element={<Lab1 />} />
