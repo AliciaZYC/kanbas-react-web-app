@@ -5,16 +5,18 @@ import Lab2 from "./Lab2";
 import Lab3 from "./Lab3";
 export default function Labs() {
   return (
-    <div>
-      <h1>Labs</h1>
+    <div className="container">
+      {/* <h1>Labs</h1> */}
       <h3>Yichi Zhang Section 01</h3>
       <TOC />
+      Please{" "}
       <a
         id="wd-github"
         href="https://github.com/AliciaZYC/kanbas-react-web-app.git"
       >
-        Github Repository
-      </a>
+        Click here
+      </a>{" "}
+      to get to the Project's Github Repository
       <Routes>
         <Route path="/" element={<Navigate to="Lab1" />} />
         <Route path="Lab1" element={<Lab1 />} />
