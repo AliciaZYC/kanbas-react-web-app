@@ -1,11 +1,20 @@
 import { FaCalendarAlt } from "react-icons/fa";
+import { useParams, Link } from "react-router-dom";
+import * as db from "../../Database"; // Assuming this is your assignments database
+
 export default function AssignmentEditor() {
+  const { cid, aid } = useParams();
+  const assignment = db.assignments.find(
+    (assignment) => assignment._id === aid && assignment.course === cid
+  );
+
   return (
     <div id="wd-assignments-editor" className="me-4">
       <label htmlFor="wd-name" className="form-label">
         Assignment Name
       </label>
-      <input id="wd-name" className="form-control" value="A1 - ENV + HTML" />
+
+      <input id="wd-name" className="form-control" value={assignment?.title} />
       <br />
       <div className="form-control">
         The assignment is <span className="text-danger">available online</span>
@@ -16,8 +25,6 @@ export default function AssignmentEditor() {
         <br />
         <br />
         The landing page should include the following:
-        <br />
-        <br />
         <ul>
           <li>Your full name and section</li>
           <li>Links to each of the lab assignments</li>
@@ -240,8 +247,18 @@ export default function AssignmentEditor() {
       </div>
       <hr className="my-4" />
       <div className="d-flex justify-content-end">
-        <button className="btn btn-secondary me-2">Cancel</button>
-        <button className="btn btn-danger">Save</button>
+        <Link
+          to={`/Kanbas/Courses/${cid}/Assignments`}
+          className="btn btn-secondary me-2"
+        >
+          Cancel
+        </Link>
+        <Link
+          to={`/Kanbas/Courses/${cid}/Assignments`}
+          className="btn btn-danger"
+        >
+          Save
+        </Link>
       </div>
     </div>
   );
