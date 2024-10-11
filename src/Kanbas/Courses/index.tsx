@@ -9,6 +9,7 @@ import GradesTable from "./Grades/Table";
 import { courses } from "../Database";
 import { FaAlignJustify } from "react-icons/fa6";
 import { Navigate, Route, Routes, useParams, useLocation } from "react-router";
+import PeopleTable from "./People/Table";
 
 export default function Courses() {
   const { cid } = useParams();
@@ -34,6 +35,7 @@ export default function Courses() {
             <Route path="Assignments" element={<Assignments />} />
             <Route path="Assignments/:aid" element={<AssignmentEditor />} />
             <Route path="Grades" element={<GradesTable />} />
+            <Route path="People" element={<PeopleTable />} />
           </Routes>
         </div>
       </div>
