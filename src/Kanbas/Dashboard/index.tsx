@@ -1,7 +1,5 @@
-// Dashboard.tsx - Update to include enroll/un-enroll functionality for students
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import * as db from "../Database";
 import { useSelector, useDispatch } from "react-redux";
 import { enroll, unenroll } from "./reducer";
 
@@ -24,10 +22,7 @@ export default function Dashboard({
   const { currentUser } = useSelector((state: any) => state.accountReducer);
   const isFaculty = currentUser?.role === "FACULTY";
   const isStudent = currentUser?.role === "STUDENT";
-  const enrollmentState = useSelector((state: any) => state.enrollment);
-  const [enrollments, setEnrollments] = useState(
-    enrollmentState?.enrollments || db.enrollments
-  );
+  const { enrollments } = useSelector((state: any) => state.enrollmentReducer);
   const [showAllCourses, setShowAllCourses] = useState(false);
 
   const toggleEnrollments = () => setShowAllCourses(!showAllCourses);
@@ -44,23 +39,10 @@ export default function Dashboard({
 
   const handleEnroll = (courseId: string) => {
     dispatch(enroll({ userId: currentUser._id, courseId }));
-    setEnrollments([
-      ...enrollments,
-      { user: currentUser._id, course: courseId },
-    ]);
   };
 
   const handleUnenroll = (courseId: string) => {
     dispatch(unenroll({ userId: currentUser._id, courseId }));
-    setEnrollments(
-      enrollments.filter(
-        (enrollment: { user: string; course: string }) =>
-          !(
-            enrollment.user === currentUser._id &&
-            enrollment.course === courseId
-          )
-      )
-    );
   };
 
   return (
