@@ -1,11 +1,92 @@
 [
-  { "_id": "A101", "title": "Propulsion Assignment", "course": "RS101" },
-  { "_id": "A102", "title": "Combustion Analysis", "course": "RS101" },
-  { "_id": "A103", "title": "Nozzle Design Project", "course": "RS101" },
-  { "_id": "A201", "title": "Aerodynamics Quiz", "course": "RS102" },
-  { "_id": "A202", "title": "Flow Analysis", "course": "RS102" },
-  { "_id": "A203", "title": "Heating Analysis", "course": "RS102" },
-  { "_id": "A301", "title": "Structural Design Task", "course": "RS103" },
-  { "_id": "A302", "title": "Orbital Calculations", "course": "RS103" },
-  { "_id": "A303", "title": "Systems Engineering Exam", "course": "RS103" }
+  {
+    "_id": "A101",
+    "title": "Propulsion Assignment",
+    "course": "RS101",
+    "description": "Analyze key aspects of propulsion systems for rockets, covering fuel types and efficiency calculations.",
+    "points": 100,
+    "dueDate": "2024-05-13T23:59",
+    "availableFrom": "2024-05-06T23:59",
+    "availableUntil": "2024-05-20T23:59"
+  },
+  {
+    "_id": "A102",
+    "title": "Combustion Analysis",
+    "course": "RS101",
+    "description": "Perform detailed analysis of combustion reactions for liquid and solid propellants.",
+    "points": 80,
+    "dueDate": "2024-05-15T23:59",
+    "availableFrom": "2024-05-07T00:00",
+    "availableUntil": "2024-05-21T23:59"
+  },
+  {
+    "_id": "A103",
+    "title": "Nozzle Design Project",
+    "course": "RS101",
+    "description": "Design a nozzle for optimal exhaust velocity using given parameters.",
+    "points": 120,
+    "dueDate": "2024-05-20T23:59",
+    "availableFrom": "2024-05-10T00:00",
+    "availableUntil": "2024-05-25T23:59"
+  },
+  {
+    "_id": "A201",
+    "title": "Aerodynamics Quiz",
+    "course": "RS102",
+    "description": "Test your knowledge of airflow and aerodynamics principles.",
+    "points": 50,
+    "dueDate": "2024-04-30T23:59",
+    "availableFrom": "2024-04-20T00:00",
+    "availableUntil": "2024-05-05T23:59"
+  },
+  {
+    "_id": "A202",
+    "title": "Flow Analysis",
+    "course": "RS102",
+    "description": "Analyze the behavior of airflow over an aircraft wing using computational tools.",
+    "points": 90,
+    "dueDate": "2024-05-08T23:59",
+    "availableFrom": "2024-04-25T00:00",
+    "availableUntil": "2024-05-12T23:59"
+  },
+  {
+    "_id": "A203",
+    "title": "Heating Analysis",
+    "course": "RS102",
+    "description": "Evaluate heating effects on a spacecraft's surface during atmospheric reentry.",
+    "points": 110,
+    "dueDate": "2024-05-10T23:59",
+    "availableFrom": "2024-04-28T00:00",
+    "availableUntil": "2024-05-14T23:59"
+  },
+  {
+    "_id": "A301",
+    "title": "Structural Design Task",
+    "course": "RS103",
+    "description": "Design and evaluate the structural integrity of a satellite frame.",
+    "points": 100,
+    "dueDate": "2024-05-12T23:59",
+    "availableFrom": "2024-04-30T00:00",
+    "availableUntil": "2024-05-15T23:59"
+  },
+  {
+    "_id": "A302",
+    "title": "Orbital Calculations",
+    "course": "RS103",
+    "description": "Calculate the orbit parameters for a satellite mission using given data.",
+    "points": 130,
+    "dueDate": "2024-05-17T23:59",
+    "availableFrom": "2024-05-01T00:00",
+    "availableUntil": "2024-05-22T23:59"
+  },
+  {
+    "_id": "A303",
+    "title": "Systems Engineering Exam",
+    "course": "RS103",
+    "description": "Comprehensive exam covering the fundamentals of systems engineering.",
+    "points": 150,
+    "dueDate": "2024-05-22T23:59",
+    "availableFrom": "2024-05-05T00:00",
+    "availableUntil": "2024-05-26T23:59"
+  }
 ]

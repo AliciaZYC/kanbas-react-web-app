@@ -1,12 +1,39 @@
 import { FaCalendarAlt } from "react-icons/fa";
-import { useParams, Link } from "react-router-dom";
-import * as db from "../../Database"; // Assuming this is your assignments database
+// import * as db from "../../Database";
+import { useParams, useNavigate, Link } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { useState } from "react";
+import { addAssignment, updateAssignment } from "./reducer";
 
 export default function AssignmentEditor() {
   const { cid, aid } = useParams();
-  const assignment = db.assignments.find(
-    (assignment) => assignment._id === aid && assignment.course === cid
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { assignments } = useSelector((state: any) => state.assignmentReducer);
+  const existingAssignment = assignments.find(
+    (assignment: any) => assignment._id === aid && assignment.course === cid
   );
+  const [assignment, setAssignment] = useState(
+    existingAssignment || {
+      title: "",
+      description: "",
+      points: 100,
+      dueDate: "",
+      availableFrom: "",
+      availableUntil: "",
+      course: cid,
+    }
+  );
+  const handleSave = () => {
+    if (existingAssignment) {
+      dispatch(updateAssignment(assignment));
+    } else {
+      dispatch(
+        addAssignment({ ...assignment, _id: new Date().getTime().toString() })
+      );
+    }
+    navigate(`/Kanbas/Courses/${cid}/Assignments`);
+  };
 
   return (
     <div id="wd-assignments-editor" className="me-4">
@@ -14,7 +41,14 @@ export default function AssignmentEditor() {
         Assignment Name
       </label>
 
-      <input id="wd-name" className="form-control" value={assignment?.title} />
+      <input
+        id="wd-name"
+        className="form-control"
+        value={assignment.title}
+        onChange={(e) =>
+          setAssignment({ ...assignment, title: e.target.value })
+        }
+      />
       <br />
       <div className="form-control">
         The assignment is <span className="text-danger">available online</span>
@@ -46,10 +80,13 @@ export default function AssignmentEditor() {
           </label>
           <div className="col-sm-10">
             <input
-              type="text"
+              type="number"
               className="form-control"
               id="wd-points"
-              value={100}
+              value={assignment.points}
+              onChange={(e) =>
+                setAssignment({ ...assignment, points: +e.target.value })
+              }
             />
           </div>
         </div>
@@ -219,7 +256,13 @@ export default function AssignmentEditor() {
                         type="datetime-local"
                         id="wd-available-from"
                         className="form-control"
-                        value="2024-05-06T23:59"
+                        value={assignment.availableFrom}
+                        onChange={(e) =>
+                          setAssignment({
+                            ...assignment,
+                            availableFrom: e.target.value,
+                          })
+                        }
                       />
                       <span className="input-group-text">
                         <FaCalendarAlt />
@@ -232,7 +275,13 @@ export default function AssignmentEditor() {
                         type="datetime-local"
                         id="wd-available-until"
                         className="form-control"
-                        value="2024-05-20T23:59"
+                        value={assignment.availableUntil}
+                        onChange={(e) =>
+                          setAssignment({
+                            ...assignment,
+                            availableUntil: e.target.value,
+                          })
+                        }
                       />
                       <span className="input-group-text">
                         <FaCalendarAlt />
@@ -253,12 +302,9 @@ export default function AssignmentEditor() {
         >
           Cancel
         </Link>
-        <Link
-          to={`/Kanbas/Courses/${cid}/Assignments`}
-          className="btn btn-danger"
-        >
+        <button className="btn btn-danger" onClick={handleSave}>
           Save
-        </Link>
+        </button>
       </div>
     </div>
   );
