@@ -83,7 +83,7 @@ export default function TOC() {
           href="https://kanbas-node-server-app-47vl.onrender.com"
           className="nav-link"
         >
-          Link: Node Server
+          Render: Node Server
         </a>
       </li>
     </ul>
