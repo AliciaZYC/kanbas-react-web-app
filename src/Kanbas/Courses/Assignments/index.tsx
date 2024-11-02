@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import {
   FaPlus,
@@ -11,7 +11,8 @@ import { BsGripVertical, BsPlus } from "react-icons/bs";
 import { IoEllipsisVertical } from "react-icons/io5";
 import { useParams } from "react-router";
 import { useSelector, useDispatch } from "react-redux";
-import { deleteAssignment } from "./reducer";
+import { deleteAssignment, setAssignments } from "./reducer";
+import * as client from "./client";
 // import * as db from "../../Database";
 
 export default function Assignments() {
@@ -26,6 +27,19 @@ export default function Assignments() {
   const [showDialog, setShowDialog] = useState(false);
   const [selectedAssignment, setSelectedAssignment] = useState<any>(null);
 
+  const fetchAssignments = async () => {
+    const assignments = await client.findAssignmentsForCourse(cid as string);
+    dispatch(setAssignments(assignments));
+  };
+  useEffect(() => {
+    fetchAssignments();
+  }, []);
+
+  const removeAssignment = async (assignmentId: string) => {
+    await client.deleteAssignment(assignmentId);
+    dispatch(deleteAssignment(assignmentId));
+  };
+
   // Open the confirmation dialog with the selected assignment
   const handleDeleteClick = (assignment: any) => {
     setSelectedAssignment(assignment);
@@ -35,7 +49,7 @@ export default function Assignments() {
   // Confirm deletion and remove the assignment
   const confirmDelete = () => {
     if (selectedAssignment) {
-      dispatch(deleteAssignment(selectedAssignment._id));
+      removeAssignment(selectedAssignment._id);
     }
     setShowDialog(false); // Close dialog
     setSelectedAssignment(null); // Reset selection
