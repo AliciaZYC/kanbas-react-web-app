@@ -4,6 +4,8 @@ import { useParams, useNavigate, Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { useState } from "react";
 import { addAssignment, updateAssignment } from "./reducer";
+import * as coursesClient from "../client";
+import * as assignmentsClient from "./client";
 
 export default function AssignmentEditor() {
   const { cid, aid } = useParams();
@@ -26,13 +28,23 @@ export default function AssignmentEditor() {
   );
   const handleSave = () => {
     if (existingAssignment) {
-      dispatch(updateAssignment(assignment));
+      saveAssignment(assignment);
     } else {
-      dispatch(
-        addAssignment({ ...assignment, _id: new Date().getTime().toString() })
-      );
+      createAssignment({ ...assignment, _id: new Date().getTime().toString() });
     }
     navigate(`/Kanbas/Courses/${cid}/Assignments`);
+  };
+
+  const createAssignment = async (assignment: any) => {
+    const newAssignment = await coursesClient.createAssignmentForCourse(
+      cid as string,
+      assignment
+    );
+    dispatch(addAssignment(newAssignment));
+  };
+  const saveAssignment = async (assignment: any) => {
+    await assignmentsClient.updateAssignment(assignment);
+    dispatch(updateAssignment(assignment));
   };
 
   return (
@@ -234,7 +246,13 @@ export default function AssignmentEditor() {
                   type="datetime-local"
                   id="wd-due-date"
                   className="form-control"
-                  value="2024-05-13T23:59"
+                  value={assignment.dueDate}
+                  onChange={(e) =>
+                    setAssignment({
+                      ...assignment,
+                      dueDate: e.target.value,
+                    })
+                  }
                 />
                 <span className="input-group-text">
                   <FaCalendarAlt />
