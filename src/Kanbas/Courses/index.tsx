@@ -3,7 +3,6 @@ import Modules from "./Modules";
 import Home from "./Home";
 import Assignments from "./Assignments";
 import AssignmentEditor from "./Assignments/Editor";
-// import PeopleTable from "./People/Table";
 import GradesTable from "./Grades/Table";
 
 import { FaAlignJustify } from "react-icons/fa6";
