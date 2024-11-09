@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 // import * as db from "../Database";
 import * as courseClient from "../Courses/client";
 import * as enrollmentClint from "./enrollmentsClient";
-import { enroll, unenroll, setEnrollments } from "./reducer";
+import { enroll, unenroll } from "./reducer";
 
 export default function Dashboard({
   courses,
