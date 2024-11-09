@@ -75,7 +75,6 @@ export default function Dashboard({
 
   const handleEnroll = async (courseId: string) => {
     try {
-      // Send request to server
       const response = await enrollmentClint.enroll(currentUser._id, courseId);
 
       if (response.status === 200) {
@@ -92,7 +91,6 @@ export default function Dashboard({
 
   const handleUnenroll = async (courseId: string) => {
     try {
-      // Send request to server
       const response = await enrollmentClint.unenroll(
         currentUser._id,
         courseId
