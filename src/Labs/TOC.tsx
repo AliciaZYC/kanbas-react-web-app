@@ -68,6 +68,24 @@ export default function TOC() {
           My GitHub
         </a>
       </li>
+      <li className="nav-item">
+        <a
+          id="wd-github-repo"
+          href="https://github.com/AliciaZYC/kanbas-node-server-app/tree/a5"
+          className="nav-link"
+        >
+          GitHub: Node Server
+        </a>
+      </li>
+      <li className="nav-item">
+        <a
+          id="wd-render"
+          href="https://kanbas-node-server-app-47vl.onrender.com"
+          className="nav-link"
+        >
+          Render: Node Server
+        </a>
+      </li>
     </ul>
   );
 }
