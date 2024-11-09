@@ -6,7 +6,6 @@ import AssignmentEditor from "./Assignments/Editor";
 // import PeopleTable from "./People/Table";
 import GradesTable from "./Grades/Table";
 
-// import { courses } from "../Database";
 import { FaAlignJustify } from "react-icons/fa6";
 import { Navigate, Route, Routes, useParams, useLocation } from "react-router";
 import PeopleTable from "./People/Table";
