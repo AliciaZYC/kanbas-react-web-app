@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import ProtectedRoute from "../Account/ProtectedRoute";
+// import ProtectedRoute from "../Account/ProtectedRoute";
 import * as courseClient from "../Courses/client";
 import * as accountClient from "../Account/client";
 import * as enrollmentClient from "./enrollmentsClient";
 import { enrollCourse, unenrollCourse } from "./reducer";
+import { useParams } from "react-router-dom";
 
 export default function Dashboard({
   courses,
@@ -85,6 +86,30 @@ export default function Dashboard({
 
     fetchEnrolledCourses();
   }, [courses]);
+  const [isEnrolled, setIsEnrolled] = useState(false);
+  const { cid } = useParams();
+  useEffect(() => {
+    const checkEnrollment = async () => {
+      if (!cid) {
+        setIsEnrolled(true);
+        return;
+      }
+
+      try {
+        const courses = await enrollmentClient.fetchEnrolledCourses(
+          currentUser._id
+        );
+        setIsEnrolled(
+          courses.some((enrollment: any) => enrollment._id === cid)
+        );
+      } catch (error) {
+        console.error("Error:", error);
+        setIsEnrolled(false);
+      }
+    };
+
+    checkEnrollment();
+  }, [currentUser, cid]);
   return (
     <div id="wd-dashboard">
       <h1 id="wd-dashboard-title">Dashboard</h1> <hr />
@@ -147,89 +172,89 @@ export default function Dashboard({
               style={{ width: "300px" }}
             >
               <div className="card rounded-3 overflow-hidden">
-                <ProtectedRoute>
-                  <Link
-                    className="wd-dashboard-course-link text-decoration-none text-dark"
-                    to={`/Kanbas/Courses/${course._id}/Home`}
-                  >
-                    <img
-                      src={`/images/${course._id}.png`}
-                      width={280}
-                      height={160}
-                      alt=""
-                    />
-                    <div className="card-body">
-                      <span
-                        className="wd-dashboard-course-link"
-                        style={{
-                          textDecoration: "none",
-                          color: "navy",
-                          fontWeight: "bold",
-                        }}
-                      >
-                        {course.name}
-                      </span>
-                      <p
-                        className="wd-dashboard-course-title card-text"
-                        style={{ maxHeight: 53, overflow: "hidden" }}
-                      >
-                        {course.description}
-                      </p>
-                      <Link
-                        to={`/Kanbas/Courses/${course._id}`}
-                        className="btn btn-primary"
-                      >
-                        Go
-                      </Link>
-                      {isStudent &&
-                        (enrolledCourses.some((c) => c._id === course._id) ? (
-                          <button
-                            className="btn btn-danger float-end"
-                            onClick={(event) => {
-                              event.preventDefault();
-                              handleUnenroll(course._id);
-                            }}
-                          >
-                            Unenroll
-                          </button>
-                        ) : (
-                          <button
-                            className="btn btn-success float-end"
-                            onClick={(event) => {
-                              event.preventDefault();
-                              handleEnroll(course._id);
-                            }}
-                          >
-                            Enroll
-                          </button>
-                        ))}
-                      {isFaculty && (
-                        <>
-                          <button
-                            onClick={(event) => {
-                              event.preventDefault();
-                              deleteCourse(course._id);
-                            }}
-                            className="btn btn-danger float-end"
-                            id="wd-delete-course-click"
-                          >
-                            Delete
-                          </button>
-                          <button
-                            id="wd-edit-course-click"
-                            onClick={(event) => {
-                              event.preventDefault();
-                              setCourse(course);
-                            }}
-                            className="btn btn-warning me-2 float-end"
-                          >
-                            Edit
-                          </button>
-                        </>
-                      )}
-                    </div>
-                  </Link>
-                </ProtectedRoute>
+                {/* <ProtectedRoute> */}
+                <Link
+                  className="wd-dashboard-course-link text-decoration-none text-dark"
+                  to={isEnrolled ? `/Kanbas/Courses/${course._id}` : "#"}
+                >
+                  <img
+                    src={`/images/${course._id}.png`}
+                    width={280}
+                    height={160}
+                    alt=""
+                  />
+                  <div className="card-body">
+                    <span
+                      className="wd-dashboard-course-link"
+                      style={{
+                        textDecoration: "none",
+                        color: "navy",
+                        fontWeight: "bold",
+                      }}
+                    >
+                      {course.name}
+                    </span>
+                    <p
+                      className="wd-dashboard-course-title card-text"
+                      style={{ maxHeight: 53, overflow: "hidden" }}
+                    >
+                      {course.description}
+                    </p>
+                    <Link
+                      to={isEnrolled ? `/Kanbas/Courses/${course._id}` : "#"}
+                      className="btn btn-primary"
+                    >
+                      Go
+                    </Link>
+                    {isStudent &&
+                      (enrolledCourses.some((c) => c._id === course._id) ? (
+                        <button
+                          className="btn btn-danger float-end"
+                          onClick={(event) => {
+                            event.preventDefault();
+                            handleUnenroll(course._id);
+                          }}
+                        >
+                          Unenroll
+                        </button>
+                      ) : (
+                        <button
+                          className="btn btn-success float-end"
+                          onClick={(event) => {
+                            event.preventDefault();
+                            handleEnroll(course._id);
+                          }}
+                        >
+                          Enroll
+                        </button>
+                      ))}
+                    {isFaculty && (
+                      <>
+                        <button
+                          onClick={(event) => {
+                            event.preventDefault();
+                            deleteCourse(course._id);
+                          }}
+                          className="btn btn-danger float-end"
+                          id="wd-delete-course-click"
+                        >
+                          Delete
+                        </button>
+                        <button
+                          id="wd-edit-course-click"
+                          onClick={(event) => {
+                            event.preventDefault();
+                            setCourse(course);
+                          }}
+                          className="btn btn-warning me-2 float-end"
+                        >
+                          Edit
+                        </button>
+                      </>
+                    )}
+                  </div>
+                </Link>
+                {/* </ProtectedRoute> */}
               </div>
             </div>
           ))}
