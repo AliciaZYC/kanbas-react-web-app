@@ -20,26 +20,9 @@ const enrollmentsSlice = createSlice({
           enrollment.user !== userId || enrollment.course !== courseId
       ) as any;
     },
-    updateEnrollment: (state, { payload: updatedEnrollment }) => {
-      state.enrollments = state.enrollments.map((enrollment: any) =>
-        enrollment._id === updatedEnrollment._id
-          ? updatedEnrollment
-          : enrollment
-      ) as any;
-    },
-    unenrollAllFromCourse: (state, { payload: courseId }) => {
-      state.enrollments = state.enrollments.filter(
-        (enrollment: any) => enrollment.course !== courseId
-      ) as any;
-    },
   },
 });
 
-export const {
-  enrollCourse,
-  unenrollCourse,
-  updateEnrollment,
-  unenrollAllFromCourse,
-} = enrollmentsSlice.actions;
+export const { enrollCourse, unenrollCourse } = enrollmentsSlice.actions;
 
 export default enrollmentsSlice.reducer;

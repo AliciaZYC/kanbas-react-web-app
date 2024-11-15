@@ -4,13 +4,13 @@ const COURSES_API = `${REMOTE_SERVER}/api/courses`;
 const axiosWithCredentials = axios.create({ withCredentials: true });
 
 export const enrollCourse = async (userId: String, courseId: string) => {
-  const response = await axiosWithCredentials.post(
+  const response = await axios.post(
     `${COURSES_API}/${userId}/${courseId}/enroll`
   );
   return response.data;
 };
 export const unenrollCourse = async (userId: String, courseId: string) => {
-  const response = await axiosWithCredentials.delete(
+  const response = await axios.delete(
     `${COURSES_API}/${userId}/${courseId}/unenroll`
   );
   return response.data;
@@ -24,6 +24,6 @@ export const fetchEnrolledCourses = async (userId: string) => {
     return response.data;
   } catch (error) {
     console.error("Error fetching enrolled courses:", error);
-    throw error; // 抛出错误，以便调用方决定如何处理
+    throw error;
   }
 };

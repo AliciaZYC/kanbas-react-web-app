@@ -25,20 +25,6 @@ export default function Dashboard({
   const { currentUser } = useSelector((state: any) => state.accountReducer);
   const isFaculty = currentUser?.role === "FACULTY";
   const isStudent = currentUser?.role === "STUDENT";
-  // const [allCourses, setAllCourses] = useState<any[]>([]);
-
-  // const fetchAllCourses = async () => {
-  //   let courses = [];
-  //   try {
-  //     courses = await courseClient.fetchAllCourses();
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  //   setAllCourses(courses);
-  // };
-  // useEffect(() => {
-  //   fetchAllCourses();
-  // });
   const [showAllCourses, setShowAllCourses] = useState(false);
   const dispatch = useDispatch();
   const [localCourses, setLocalCourses] = useState<any[]>([]);
@@ -84,7 +70,8 @@ export default function Dashboard({
     };
 
     fetchEnrolledCourses();
-  }, [courses]);
+  }, [currentUser]);
+
   return (
     <div id="wd-dashboard">
       <h1 id="wd-dashboard-title">Dashboard</h1> <hr />
