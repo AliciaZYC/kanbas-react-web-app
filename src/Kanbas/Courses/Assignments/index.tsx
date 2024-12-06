@@ -22,6 +22,7 @@ export default function Assignments() {
 
   const { currentUser } = useSelector((state: any) => state.accountReducer);
   const isFaculty = currentUser?.role === "FACULTY";
+  const isAdmin = currentUser?.role === "ADMIN";
   const dispatch = useDispatch();
   const navigate = useNavigate();
   // State to track dialog visibility and selected assignment
@@ -92,7 +93,7 @@ export default function Assignments() {
         </div>
 
         {/* Add Buttons for Faculty Only */}
-        {isFaculty && (
+        {(isFaculty || isAdmin) && (
           <>
             <button
               id="wd-add-assignment"
@@ -209,7 +210,7 @@ export default function Assignments() {
                   </div>
                   <div className="d-flex align-items-center">
                     <FaCheckCircle className="fs-3 text-success me-2" />
-                    {isFaculty && (
+                    {(isFaculty || isAdmin) && (
                       <FaTrash
                         className="text-danger me-2 mb-1"
                         onClick={() => handleDeleteClick(assignment)}
