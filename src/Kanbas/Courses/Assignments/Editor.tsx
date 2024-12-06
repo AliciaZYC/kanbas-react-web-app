@@ -26,15 +26,32 @@ export default function AssignmentEditor() {
       course: cid,
     }
   );
-  const handleSave = () => {
+  // const handleSave = () => {
+  //   if (existingAssignment) {
+  //     saveAssignment(assignment);
+  //   } else {
+  //     createAssignment({ ...assignment, _id: new Date().getTime().toString() });
+  //   }
+  //   navigate(`/Kanbas/Courses/${cid}/Assignments`);
+  // };
+  const handleSave = async () => {
     if (existingAssignment) {
-      saveAssignment(assignment);
+      await saveAssignment(assignment);
     } else {
-      createAssignment({ ...assignment, _id: new Date().getTime().toString() });
+      await createAssignment(assignment);
     }
     navigate(`/Kanbas/Courses/${cid}/Assignments`);
   };
-
+  // const createAssignment = async (assignment: any) => {
+  //   const newAssignment = await coursesClient.createAssignmentForCourse(
+  //     cid as string,
+  //     assignment
+  //   );
+  //   // dispatch(addAssignment(newAssignment));
+  //   dispatch(
+  //     addAssignment({ ...newAssignment, _id: newAssignment._id.toString() })
+  //   );
+  // };
   const createAssignment = async (assignment: any) => {
     const newAssignment = await coursesClient.createAssignmentForCourse(
       cid as string,
@@ -45,6 +62,11 @@ export default function AssignmentEditor() {
   const saveAssignment = async (assignment: any) => {
     await assignmentsClient.updateAssignment(assignment);
     dispatch(updateAssignment(assignment));
+  };
+  const formatForInput = (dateString: any) => {
+    if (!dateString) return "";
+    const date = new Date(dateString);
+    return date.toISOString().slice(0, 16); // 截取到分钟部分
   };
 
   return (
@@ -246,7 +268,7 @@ export default function AssignmentEditor() {
                   type="datetime-local"
                   id="wd-due-date"
                   className="form-control"
-                  value={assignment.dueDate}
+                  value={formatForInput(assignment.dueDate)}
                   onChange={(e) =>
                     setAssignment({
                       ...assignment,
@@ -274,7 +296,7 @@ export default function AssignmentEditor() {
                         type="datetime-local"
                         id="wd-available-from"
                         className="form-control"
-                        value={assignment.availableFrom}
+                        value={formatForInput(assignment.availableFrom)}
                         onChange={(e) =>
                           setAssignment({
                             ...assignment,
@@ -293,7 +315,7 @@ export default function AssignmentEditor() {
                         type="datetime-local"
                         id="wd-available-until"
                         className="form-control"
-                        value={assignment.availableUntil}
+                        value={formatForInput(assignment.availableUntil)}
                         onChange={(e) =>
                           setAssignment({
                             ...assignment,

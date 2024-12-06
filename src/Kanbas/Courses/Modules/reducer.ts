@@ -8,11 +8,16 @@ const modulesSlice = createSlice({
   initialState,
   reducers: {
     setModules: (state, action) => {
-      state.modules = action.payload;
+      // state.modules = action.payload;
+      state.modules = action.payload.map((module: any) => ({
+        ...module,
+        _id: module._id.toString(), // Convert ObjectId to string
+      }));
     },
     addModule: (state, { payload: module }) => {
       const newModule: any = {
-        _id: new Date().getTime().toString(),
+        // _id: new Date().getTime().toString(),
+        _id: module._id.toString(),
         lessons: [],
         name: module.name,
         course: module.course,

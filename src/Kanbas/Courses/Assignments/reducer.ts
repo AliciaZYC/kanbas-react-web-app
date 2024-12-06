@@ -9,11 +9,16 @@ const assignmentsSlice = createSlice({
   initialState,
   reducers: {
     setAssignments: (state, action) => {
-      state.assignments = action.payload;
+      // state.assignments = action.payload;
+      state.assignments = action.payload.map((assignment: any) => ({
+        ...assignment,
+        // _id: assignment._id.toString(), // Convert ObjectId to string
+      }));
     },
     addAssignment: (state, { payload: assignment }) => {
       const newAssignment: any = {
-        _id: new Date().getTime().toString(),
+        // _id: new Date().getTime().toString(),
+        // _id: assignment._id.toString(),
         course: assignment.course,
         title: assignment.title,
         description: assignment.description || "",

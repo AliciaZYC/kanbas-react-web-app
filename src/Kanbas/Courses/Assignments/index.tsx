@@ -64,6 +64,17 @@ export default function Assignments() {
     setSelectedAssignment(null);
   };
 
+  const formatDateTime = (dateString: any) => {
+    const date = new Date(dateString);
+    return date.toLocaleString("en-US", {
+      year: "numeric",
+      month: "short",
+      day: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+  };
+
   return (
     <div id="wd-assignments" className="text-nowrap">
       <div className="d-flex mb-3">
@@ -124,7 +135,7 @@ export default function Assignments() {
             </div>
           </div>
 
-          <ul id="wd-assignment-list" className="list-group rounded-0">
+          {/* <ul id="wd-assignment-list" className="list-group rounded-0">
             {assignments
               // .filter((assignment: any) => assignment.course === cid)
               .map((assignment: any) => (
@@ -149,8 +160,10 @@ export default function Assignments() {
                       <p>
                         <span className="text-danger">Multiple Modules</span> |{" "}
                         <strong>Not available until</strong>{" "}
-                        {assignment.availableUntil} | <strong>Due</strong>{" "}
-                        {assignment.dueDate} | {assignment.points} pts
+                        {formatDateTime(assignment.availableFrom)} |{" "}
+                        <strong>Due</strong>{" "}
+                        {formatDateTime(assignment.dueDate)} |{" "}
+                        {assignment.points} pts
                       </p>
                     </div>
                     <div className="col-auto">
@@ -166,6 +179,47 @@ export default function Assignments() {
                   </div>
                 </li>
               ))}
+          </ul> */}
+          <ul id="wd-assignment-list" className="list-group rounded-0">
+            {assignments.map((assignment: any) => (
+              <li
+                key={assignment._id}
+                className="wd-assignment-list-item list-group-item p-3 ps-1"
+              >
+                <div className="d-flex align-items-center justify-content-between">
+                  <div className="d-flex align-items-center">
+                    <BsGripVertical className="me-2 fs-3" />
+                    <FaClipboardList className="fs-3 text-success me-2" />
+                    <div>
+                      <a
+                        className="wd-assignment-link text-dark fw-bold fs-5 text-decoration-none"
+                        href={`#/Kanbas/Courses/${cid}/Assignments/${assignment._id}`}
+                      >
+                        {assignment.title}
+                      </a>
+                      <p className="mb-0">
+                        <span className="text-danger">Multiple Modules</span> |{" "}
+                        <strong>Not available until</strong>{" "}
+                        {formatDateTime(assignment.availableFrom)} |{" "}
+                        <strong>Due</strong>{" "}
+                        {formatDateTime(assignment.dueDate)} |{" "}
+                        {assignment.points} pts
+                      </p>
+                    </div>
+                  </div>
+                  <div className="d-flex align-items-center">
+                    <FaCheckCircle className="fs-3 text-success me-2" />
+                    {isFaculty && (
+                      <FaTrash
+                        className="text-danger me-2 mb-1"
+                        onClick={() => handleDeleteClick(assignment)}
+                      />
+                    )}
+                    <IoEllipsisVertical className="fs-4" />
+                  </div>
+                </div>
+              </li>
+            ))}
           </ul>
         </li>
       </ul>

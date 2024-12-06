@@ -21,6 +21,7 @@ export default function Modules() {
   const { modules } = useSelector((state: any) => state.modulesReducer);
   const { currentUser } = useSelector((state: any) => state.accountReducer);
   const isFaculty = currentUser?.role === "FACULTY";
+  const isAdmin = currentUser?.role === "ADMIN";
   const dispatch = useDispatch();
   const fetchModules = async () => {
     const modules = await coursesClient.findModulesForCourse(cid as string);
@@ -33,7 +34,8 @@ export default function Modules() {
     if (!cid) return;
     const newModule = { name: moduleName, course: cid };
     const module = await coursesClient.createModuleForCourse(cid, newModule);
-    dispatch(addModule(module));
+    // dispatch(addModule(module));
+    dispatch(addModule({ ...module, _id: module._id.toString() }));
   };
   const removeModule = async (moduleId: string) => {
     await modulesClient.deleteModule(moduleId);
@@ -46,7 +48,7 @@ export default function Modules() {
 
   return (
     <div className="wd-modules">
-      {isFaculty && (
+      {(isFaculty || isAdmin) && (
         <>
           <ModulesControls
             moduleName={moduleName}
@@ -82,7 +84,7 @@ export default function Modules() {
                     value={module.name}
                   />
                 )}
-                {isFaculty && (
+                {(isFaculty || isAdmin) && (
                   <ModuleControlButtons
                     moduleId={module._id}
                     deleteModule={(moduleId) => removeModule(moduleId)}
