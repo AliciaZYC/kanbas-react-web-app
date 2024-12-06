@@ -4,12 +4,17 @@ import Home from "./Home";
 import Assignments from "./Assignments";
 import AssignmentEditor from "./Assignments/Editor";
 import GradesTable from "./Grades/Table";
-
 import { FaAlignJustify } from "react-icons/fa6";
 import { Navigate, Route, Routes, useParams, useLocation } from "react-router";
 import PeopleTable from "./People/Table";
 import React, { useEffect, useState } from "react";
 import * as courseClient from "./client";
+import Quiz from "./Quiz";
+import QuizEditor from "./Quiz/DetailsEditor";
+import QuizDetails from "./Quiz/QuizDetailsScreen";
+import QuizPreviewScreen from "./Quiz/QuizPreviewScreen";
+import TakeQuizScreen from "./Quiz/TakeQuizScreen";
+import QuizResultScreen from "./Quiz/QuizResultScreen";
 
 export default function Courses({ courses }: { courses: any[] }) {
   const { cid } = useParams();
@@ -52,6 +57,16 @@ export default function Courses({ courses }: { courses: any[] }) {
             <Route path="Assignments/new" element={<AssignmentEditor />} />
             <Route path="Grades" element={<GradesTable />} />
             <Route path="People" element={<PeopleTable users={users} />} />
+            <Route path="Quizzes" element={<Quiz />} />
+            <Route path="Quizzes/edit/:qid" element={<QuizEditor />} />
+            <Route
+              path="Quizzes/preview/:qid"
+              element={<QuizPreviewScreen />}
+            />
+            <Route path="Quizzes/new" element={<QuizEditor />} />
+            <Route path="Quizzes/Details/:qid" element={<QuizDetails />} />
+            <Route path="Quizzes/:qid/take" element={<TakeQuizScreen />} />
+            <Route path="Quizzes/:qid/result" element={<QuizResultScreen />} />
           </Routes>
         </div>
       </div>

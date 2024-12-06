@@ -25,6 +25,14 @@ export default function Profile() {
   useEffect(() => {
     fetchProfile();
   }, []);
+  function formatDate(date: string | Date): string {
+    const d = new Date(date);
+    const year = d.getFullYear();
+    const month = String(d.getMonth() + 1).padStart(2, "0"); // 月份从0开始，需要+1
+    const day = String(d.getDate()).padStart(2, "0");
+    return `${year}-${month}-${day}`;
+  }
+
   return (
     <div className="wd-profile-screen">
       <h3>Profile</h3>
@@ -63,7 +71,7 @@ export default function Profile() {
             }
           />
           <input
-            defaultValue={profile.dob}
+            value={formatDate(profile.dob)}
             id="wd-dob"
             className="form-control mb-2"
             onChange={(e) => setProfile({ ...profile, dob: e.target.value })}
@@ -76,6 +84,7 @@ export default function Profile() {
             onChange={(e) => setProfile({ ...profile, email: e.target.value })}
           />
           <select
+            value={profile.role}
             onChange={(e) => setProfile({ ...profile, role: e.target.value })}
             className="form-control mb-2"
             id="wd-role"
