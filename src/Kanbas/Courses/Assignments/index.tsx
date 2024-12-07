@@ -192,12 +192,18 @@ export default function Assignments() {
                     <BsGripVertical className="me-2 fs-3" />
                     <FaClipboardList className="fs-3 text-success me-2" />
                     <div>
-                      <a
-                        className="wd-assignment-link text-dark fw-bold fs-5 text-decoration-none"
-                        href={`#/Kanbas/Courses/${cid}/Assignments/${assignment._id}`}
-                      >
-                        {assignment.title}
-                      </a>
+                      {isFaculty ? (
+                        <a
+                          className="wd-assignment-link text-dark fw-bold fs-5 text-decoration-none"
+                          href={`#/Kanbas/Courses/${cid}/Assignments/${assignment._id}`}
+                        >
+                          {assignment.title}
+                        </a>
+                      ) : (
+                        <span className="text-dark fw-bold fs-5">
+                          {assignment.title}
+                        </span>
+                      )}
                       <p className="mb-0">
                         <span className="text-danger">Multiple Modules</span> |{" "}
                         <strong>Not available until</strong>{" "}
