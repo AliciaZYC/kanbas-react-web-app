@@ -1,46 +1,117 @@
-# Getting Started with Create React App
+# Kanbas React Web App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Kanbas is a full-stack web application built using the MERN stack that mimics the functionality of the Canvas Learning Management System (LMS). It provides tailored dashboards and features for different user roles, including students, faculty, admins, and TAs. The application enables users to manage courses, modules, assignments, and quizzes efficiently.
 
-## Available Scripts
+### **Live Deployment**
 
-In the project directory, you can run:
+- [Kanbas React Web App (Deployed)](https://a5new--kanbas-react-web-app-yichizhang.netlify.app/#/Labs/Lab5)
+- The latest branch is project branch but the most updated deployed branch is a5 which has several commits behind.
 
-### `npm start`
+### **Node Server**
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+The backend of this application is hosted at [Kanbas Node Server](https://github.com/AliciaZYC/kanbas-node-server).
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+---
 
-### `npm test`
+## **Features**
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### **User Types and Role-Specific Features**
 
-### `npm run build`
+1. **Students**:
+    - View personalized dashboards, view all courses and choose to enroll or unenroll.
+    - Access course modules, assignments, and quizzes (if published faculty and are still available).
+    - Submit assignments and participate in quizzes and the scores.
+2. **Faculty**:
+    - Create and manage courses.
+    - Add, edit, and remove modules, assignments, and quizzes (including questions for quizzes) .
+3. **Admins**:
+    - Oversee the entire system.
+    - Manage user accounts and permissions.
+    - Ensure smooth operation of the LMS.
+4. **TAs (to be continued)**:
+    - Assist faculty in grading and managing course materials.
+    - Provide feedback on student submissions.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+---
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### **Core Screens and Functionality**
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+1. **Dashboard**:
+    - Role-specific views showing relevant updates and actions.
+2. **Courses**:
+    - Detailed course pages with modules, assignments, and quizzes.
+3. **Modules**:
+    - Organized course content with easy navigation.
+4. **Assignments**:
+    - Submission tracking, grading, and feedback.
+5. **Quizzes**:
+    - Timed assessments with automated grading.
+6. **Peoples:**
+    - All the users who are enrolled in the course.
+7. **Grades:**
+    - All the student’s grades of the course on their assignments and quizzes.
 
-### `npm run eject`
+---
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## **Tech Stack**
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- **Frontend**: React, Bootstrap for responsive UI components.
+- **Backend**: Node.js with Express.js.
+- **Database**: MongoDB for scalable and efficient data storage.
+- **Hosting**: Deployed on Netlify (frontend) and Render/Node server (backend).
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+---
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+## **Getting Started**
 
-## Learn More
+### **Prerequisites**
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- Node.js
+- MongoDB
+- npm/yarn
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### **Setup**
+
+1. Clone the frontend and backend repositories:
+    
+    ```bash
+    git clone https://github.com/AliciaZYC/kanbas-react-web-app.git
+    git clone https://github.com/AliciaZYC/kanbas-node-server.git
+    ```
+    
+2. Install dependencies:
+    
+    ```bash
+    cd kanbas-react-web-app
+    npm install
+    cd ../kanbas-node-server
+    npm install
+    ```
+    
+3. Start the backend server:
+    
+    ```bash
+    Copy code
+    nodemon index.js
+    ```
+    
+4. Start the frontend:
+    
+    ```bash
+    cd kanbas-react-web-app
+    npm start
+    ```
+    
+5. Open the application in your browser at `http://localhost:3000`.
+
+---
+
+## **License**
+
+This project is licensed under the MIT License.
+
+---
+
+## **Contributions**
+
+Contributions are welcome! Feel free to fork the repository and submit a pull request.
